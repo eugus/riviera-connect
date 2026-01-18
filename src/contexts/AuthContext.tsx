@@ -119,7 +119,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         nome,
         bloco,
         apartamento,
-        role: 'admin',
+        role: 'morador',
       });
 
       if (profileError) {
