@@ -15,6 +15,7 @@ import {
   X,
   Search,
   Sun,
+  BookOpen,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -24,6 +25,7 @@ const navItems = [
   { path: '/noticias', label: 'Notícias', icon: Newspaper },
   { path: '/eventos', label: 'Eventos', icon: CalendarDays },
   { path: '/documentos', label: 'Documentos', icon: FileText },
+  { path: '/regras', label: 'Regras', icon: BookOpen },
   { path: '/perfil', label: 'Perfil', icon: User },
 ];
 

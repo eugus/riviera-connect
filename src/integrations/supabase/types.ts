@@ -228,6 +228,53 @@ export type Database = {
         }
         Relationships: []
       }
+      regras: {
+        Row: {
+          arquivo_url: string | null
+          autor_id: string | null
+          categoria: string | null
+          conteudo: string
+          created_at: string
+          id: string
+          ordem: number
+          titulo: string
+          tipo: string
+          updated_at: string
+        }
+        Insert: {
+          arquivo_url?: string | null
+          autor_id?: string | null
+          categoria?: string | null
+          conteudo: string
+          created_at?: string
+          id?: string
+          ordem?: number
+          titulo: string
+          tipo?: string
+          updated_at?: string
+        }
+        Update: {
+          arquivo_url?: string | null
+          autor_id?: string | null
+          categoria?: string | null
+          conteudo?: string
+          created_at?: string
+          id?: string
+          ordem?: number
+          titulo?: string
+          tipo?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "regras_autor_id_fkey"
+            columns: ["autor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

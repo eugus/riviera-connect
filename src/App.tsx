@@ -13,6 +13,7 @@ import Noticias from "./pages/Noticias";
 import Eventos from "./pages/Eventos";
 import Documentos from "./pages/Documentos";
 import Perfil from "./pages/Perfil";
+import Rules from "./pages/Rules";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,7 +28,7 @@ const App = () => (
           <Routes>
             {/* Public route */}
             <Route path="/auth" element={<Auth />} />
-            
+
             {/* Protected routes */}
             <Route
               element={
@@ -41,12 +42,13 @@ const App = () => (
               <Route path="/noticias" element={<Noticias />} />
               <Route path="/eventos" element={<Eventos />} />
               <Route path="/documentos" element={<Documentos />} />
+              <Route path="/regras" element={<Rules />} />
               <Route path="/perfil" element={<Perfil />} />
             </Route>
 
             {/* Redirects */}
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            
+
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>
