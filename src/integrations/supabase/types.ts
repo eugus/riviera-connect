@@ -327,35 +327,44 @@ export type Database = {
       }
       regras: {
         Row: {
+          arquivo_url: string | null
           ativo: boolean
           autor_id: string | null
           categoria: string
+          conteudo: string | null
           created_at: string
           descricao: string
           id: string
           ordem: number
+          tipo: string
           titulo: string
           updated_at: string
         }
         Insert: {
+          arquivo_url?: string | null
           ativo?: boolean
           autor_id?: string | null
           categoria?: string
+          conteudo?: string | null
           created_at?: string
           descricao: string
           id?: string
           ordem?: number
+          tipo?: string
           titulo: string
           updated_at?: string
         }
         Update: {
+          arquivo_url?: string | null
           ativo?: boolean
           autor_id?: string | null
           categoria?: string
+          conteudo?: string | null
           created_at?: string
           descricao?: string
           id?: string
           ordem?: number
+          tipo?: string
           titulo?: string
           updated_at?: string
         }

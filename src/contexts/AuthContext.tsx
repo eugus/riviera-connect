@@ -100,8 +100,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   ): Promise<{ error: Error | null }> => {
     const redirectUrl = `${window.location.origin}/`;
 
+    // Se o email não for fornecido, gera um email único baseado em bloco/apt/timestamp
+    const finalEmail = email && email.trim() !== '' 
+      ? email 
+      : `morador_${bloco}_${apartamento}_${Date.now()}@riviera.local`;
+
     const { data, error } = await supabase.auth.signUp({
-      email,
+      email: finalEmail,
       password,
       options: {
         emailRedirectTo: redirectUrl,

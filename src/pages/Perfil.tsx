@@ -36,11 +36,11 @@ export default function Perfil() {
       return;
     }
 
-    if (passwordData.newPassword.length < 6) {
+    if (!/^\d{4}$/.test(passwordData.newPassword)) {
       toast({
         variant: 'destructive',
         title: 'Erro',
-        description: 'A nova senha deve ter pelo menos 6 caracteres.',
+        description: 'A senha deve ter exatamente 4 dígitos numéricos.',
       });
       return;
     }
@@ -171,15 +171,19 @@ export default function Perfil() {
           ) : (
             <form onSubmit={handleChangePassword} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="newPassword">Nova Senha</Label>
+                <Label htmlFor="newPassword">Nova Senha (4 dígitos)</Label>
                 <Input
                   id="newPassword"
                   type="password"
                   value={passwordData.newPassword}
-                  onChange={(e) =>
-                    setPasswordData({ ...passwordData, newPassword: e.target.value })
-                  }
-                  placeholder="••••••••"
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+                    setPasswordData({ ...passwordData, newPassword: value });
+                  }}
+                  placeholder="••••"
+                  maxLength={4}
+                  inputMode="numeric"
+                  className="text-center tracking-widest"
                   required
                 />
               </div>
@@ -190,10 +194,14 @@ export default function Perfil() {
                   id="confirmPassword"
                   type="password"
                   value={passwordData.confirmPassword}
-                  onChange={(e) =>
-                    setPasswordData({ ...passwordData, confirmPassword: e.target.value })
-                  }
-                  placeholder="••••••••"
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+                    setPasswordData({ ...passwordData, confirmPassword: value });
+                  }}
+                  placeholder="••••"
+                  maxLength={4}
+                  inputMode="numeric"
+                  className="text-center tracking-widest"
                   required
                 />
               </div>
