@@ -36,8 +36,9 @@ export default function Noticias() {
   const [formData, setFormData] = useState({
     titulo: '',
     conteudo: '',
-    imagem_url: '',
   });
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const fetchNoticias = async () => {
     const { data, error } = await supabase
@@ -63,18 +64,55 @@ export default function Noticias() {
       noticia.conteudo.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          variant: 'destructive',
+          title: 'Imagem muito grande',
+          description: 'A imagem não pode exceder 5MB',
+        });
+        return;
+      }
+      setSelectedImage(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const uploadImage = async (file: File): Promise<string> => {
+    const fileName = `${Date.now()}-${file.name}`;
+    const { error } = await supabase.storage
+      .from('noticias')
+      .upload(fileName, file);
+
+    if (error) throw error;
+
+    const { data: urlData } = supabase.storage
+      .from('noticias')
+      .getPublicUrl(fileName);
+
+    return urlData.publicUrl;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
+      let imagem_url = editingNoticia?.imagem_url || null;
+
+      if (selectedImage) {
+        imagem_url = await uploadImage(selectedImage);
+      }
+
       if (editingNoticia) {
         const { error } = await supabase
           .from('noticias')
           .update({
             titulo: formData.titulo,
             conteudo: formData.conteudo,
-            imagem_url: formData.imagem_url || null,
+            imagem_url,
           })
           .eq('id', editingNoticia.id);
 
@@ -84,7 +122,7 @@ export default function Noticias() {
         const { error } = await supabase.from('noticias').insert({
           titulo: formData.titulo,
           conteudo: formData.conteudo,
-          imagem_url: formData.imagem_url || null,
+          imagem_url,
           autor_id: profile?.id,
         });
 
@@ -94,7 +132,9 @@ export default function Noticias() {
 
       setIsDialogOpen(false);
       setEditingNoticia(null);
-      setFormData({ titulo: '', conteudo: '', imagem_url: '' });
+      setFormData({ titulo: '', conteudo: '' });
+      setSelectedImage(null);
+      setImagePreview(null);
       fetchNoticias();
     } catch (error: any) {
       toast({
@@ -129,8 +169,9 @@ export default function Noticias() {
     setFormData({
       titulo: noticia.titulo,
       conteudo: noticia.conteudo,
-      imagem_url: noticia.imagem_url || '',
     });
+    setImagePreview(noticia.imagem_url);
+    setSelectedImage(null);
     setIsDialogOpen(true);
   };
 
@@ -162,7 +203,9 @@ export default function Noticias() {
                 className="gap-2"
                 onClick={() => {
                   setEditingNoticia(null);
-                  setFormData({ titulo: '', conteudo: '', imagem_url: '' });
+                  setFormData({ titulo: '', conteudo: '' });
+                  setSelectedImage(null);
+                  setImagePreview(null);
                 }}
               >
                 <Plus className="h-5 w-5" />
@@ -187,14 +230,38 @@ export default function Noticias() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="imagem_url">URL da Imagem (opcional)</Label>
-                  <Input
-                    id="imagem_url"
-                    value={formData.imagem_url}
-                    onChange={(e) => setFormData({ ...formData, imagem_url: e.target.value })}
-                    placeholder="https://..."
-                    type="url"
-                  />
+                  <Label htmlFor="imagem">Imagem (opcional)</Label>
+                  <div className="space-y-3">
+                    {imagePreview && (
+                      <div className="relative">
+                        <img 
+                          src={imagePreview} 
+                          alt="Preview" 
+                          className="w-full h-32 object-cover rounded-lg"
+                        />
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="sm"
+                          className="absolute top-2 right-2"
+                          onClick={() => {
+                            setSelectedImage(null);
+                            setImagePreview(null);
+                          }}
+                        >
+                          Remover
+                        </Button>
+                      </div>
+                    )}
+                    <Input
+                      id="imagem"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="cursor-pointer"
+                    />
+                    <p className="text-xs text-muted-foreground">Máximo 5MB</p>
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="conteudo">Conteúdo</Label>

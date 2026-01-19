@@ -16,6 +16,8 @@ import {
   Search,
   Sun,
   BookOpen,
+  Package,
+  Users,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -26,6 +28,8 @@ const navItems = [
   { path: '/eventos', label: 'Eventos', icon: CalendarDays },
   { path: '/documentos', label: 'Documentos', icon: FileText },
   { path: '/regras', label: 'Regras', icon: BookOpen },
+  { path: '/encomendas', label: 'Encomendas', icon: Package },
+  { path: '/pessoas-autorizadas', label: 'Autorizados', icon: Users, adminOnly: true },
   { path: '/perfil', label: 'Perfil', icon: User },
 ];
 
@@ -133,6 +137,11 @@ export const AppLayout: React.FC = () => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
 
+              // Oculta itens adminOnly para não-admins
+              if ((item as any).adminOnly && !isAdmin) {
+                return null;
+              }
+
               return (
                 <Link
                   key={item.path}
@@ -187,6 +196,11 @@ export const AppLayout: React.FC = () => {
                 {navItems.map((item) => {
                   const Icon = item.icon;
                   const isActive = location.pathname === item.path;
+
+                  // Oculta itens adminOnly para não-admins
+                  if ((item as any).adminOnly && !isAdmin) {
+                    return null;
+                  }
 
                   return (
                     <Link

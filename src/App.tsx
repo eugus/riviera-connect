@@ -14,6 +14,8 @@ import Eventos from "./pages/Eventos";
 import Documentos from "./pages/Documentos";
 import Perfil from "./pages/Perfil";
 import Rules from "./pages/Rules";
+import Encomendas from "./pages/Encomendas";
+import PessoasAutorizadas from "./pages/PessoasAutorizadas";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,6 +45,8 @@ const App = () => (
               <Route path="/eventos" element={<Eventos />} />
               <Route path="/documentos" element={<Documentos />} />
               <Route path="/regras" element={<Rules />} />
+              <Route path="/encomendas" element={<Encomendas />} />
+              <Route path="/pessoas-autorizadas" element={<PessoasAutorizadas />} />
               <Route path="/perfil" element={<Perfil />} />
             </Route>
 

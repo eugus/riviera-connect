@@ -155,9 +155,10 @@ export default function Rules() {
             const dados = {
                 titulo: formData.titulo,
                 conteudo: activeTab === 'texto' ? formData.conteudo : '',
+                descricao: activeTab === 'texto' ? formData.conteudo : formData.titulo,
                 tipo: activeTab,
                 arquivo_url,
-                categoria: formData.categoria || null,
+                categoria: formData.categoria || 'geral',
             };
 
             if (editingRegra) {
