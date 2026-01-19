@@ -116,6 +116,50 @@ export type Database = {
           },
         ]
       }
+      encomendas: {
+        Row: {
+          apartamento: string
+          bloco: string
+          created_at: string
+          criado_por: string | null
+          descricao: string
+          id: string
+          retirada: boolean
+          retirada_em: string | null
+          tipo: string
+        }
+        Insert: {
+          apartamento: string
+          bloco: string
+          created_at?: string
+          criado_por?: string | null
+          descricao: string
+          id?: string
+          retirada?: boolean
+          retirada_em?: string | null
+          tipo?: string
+        }
+        Update: {
+          apartamento?: string
+          bloco?: string
+          created_at?: string
+          criado_por?: string | null
+          descricao?: string
+          id?: string
+          retirada?: boolean
+          retirada_em?: string | null
+          tipo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "encomendas_criado_por_fkey"
+            columns: ["criado_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       eventos: {
         Row: {
           autor_id: string | null
@@ -195,6 +239,59 @@ export type Database = {
           },
         ]
       }
+      pessoas_autorizadas: {
+        Row: {
+          apartamento: string
+          ativo: boolean
+          bloco: string
+          created_at: string
+          criado_por: string | null
+          documento: string | null
+          email: string | null
+          id: string
+          nome: string
+          parentesco: string | null
+          telefone: string | null
+          updated_at: string
+        }
+        Insert: {
+          apartamento: string
+          ativo?: boolean
+          bloco: string
+          created_at?: string
+          criado_por?: string | null
+          documento?: string | null
+          email?: string | null
+          id?: string
+          nome: string
+          parentesco?: string | null
+          telefone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          apartamento?: string
+          ativo?: boolean
+          bloco?: string
+          created_at?: string
+          criado_por?: string | null
+          documento?: string | null
+          email?: string | null
+          id?: string
+          nome?: string
+          parentesco?: string | null
+          telefone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pessoas_autorizadas_criado_por_fkey"
+            columns: ["criado_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           apartamento: string
@@ -227,6 +324,50 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      regras: {
+        Row: {
+          ativo: boolean
+          autor_id: string | null
+          categoria: string
+          created_at: string
+          descricao: string
+          id: string
+          ordem: number
+          titulo: string
+          updated_at: string
+        }
+        Insert: {
+          ativo?: boolean
+          autor_id?: string | null
+          categoria?: string
+          created_at?: string
+          descricao: string
+          id?: string
+          ordem?: number
+          titulo: string
+          updated_at?: string
+        }
+        Update: {
+          ativo?: boolean
+          autor_id?: string | null
+          categoria?: string
+          created_at?: string
+          descricao?: string
+          id?: string
+          ordem?: number
+          titulo?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "regras_autor_id_fkey"
+            columns: ["autor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
