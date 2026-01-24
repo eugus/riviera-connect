@@ -107,6 +107,7 @@ export default function Auth() {
 
     try {
       const validData = signupSchema.parse(signupData);
+
       const { error } = await signUp(
         validData.email,
         validData.password,
@@ -117,23 +118,25 @@ export default function Auth() {
 
       if (error) {
         let errorMessage = 'Erro ao criar conta. Tente novamente.';
+
         if (error.message.includes('already registered')) {
           errorMessage = 'Este e-mail já está cadastrado.';
-        } else if (error.message.includes('unique constraint')) {
-          errorMessage = 'Este apartamento já possui um cadastro.';
         }
+
         toast({
           variant: 'destructive',
           title: 'Erro no cadastro',
           description: errorMessage,
         });
-      } else {
-        toast({
-          title: 'Conta criada!',
-          description: 'Cadastro realizado com sucesso. Bem-vindo ao Riviera!',
-        });
-        navigate('/dashboard');
+        return;
       }
+
+      toast({
+        title: 'Conta criada!',
+        description: 'Cadastro realizado com sucesso. Bem-vindo ao Riviera!',
+      });
+
+      navigate('/dashboard');
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast({
@@ -146,6 +149,7 @@ export default function Auth() {
       setIsLoading(false);
     }
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/20 via-background to-accent/30 p-4">
