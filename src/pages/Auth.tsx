@@ -192,7 +192,7 @@ export default function Auth() {
                       id="login-password"
                       type="password"
                       placeholder="••••"
-                      placeholder="••••"
+                      
                       value={loginData.password}
                       onChange={(e) => {
                         const value = e.target.value.replace(/\D/g, '').slice(0, 6);
