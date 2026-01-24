@@ -36,11 +36,11 @@ export default function Perfil() {
       return;
     }
 
-    if (!/^\d{4}$/.test(passwordData.newPassword)) {
+    if (!/^\d{6}$/.test(passwordData.newPassword)) {
       toast({
         variant: 'destructive',
         title: 'Erro',
-        description: 'A senha deve ter exatamente 4 dígitos numéricos.',
+        description: 'A senha deve ter exatamente 6 dígitos numéricos.',
       });
       return;
     }
@@ -171,17 +171,17 @@ export default function Perfil() {
           ) : (
             <form onSubmit={handleChangePassword} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="newPassword">Nova Senha (4 dígitos)</Label>
+                <Label htmlFor="newPassword">Nova Senha (6 dígitos)</Label>
                 <Input
                   id="newPassword"
                   type="password"
                   value={passwordData.newPassword}
                   onChange={(e) => {
-                    const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+                    const value = e.target.value.replace(/\D/g, '').slice(0, 6);
                     setPasswordData({ ...passwordData, newPassword: value });
                   }}
-                  placeholder="••••"
-                  maxLength={4}
+                  placeholder="••••••"
+                  maxLength={6}
                   inputMode="numeric"
                   className="text-center tracking-widest"
                   required
@@ -195,11 +195,11 @@ export default function Perfil() {
                   type="password"
                   value={passwordData.confirmPassword}
                   onChange={(e) => {
-                    const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+                    const value = e.target.value.replace(/\D/g, '').slice(0, 6);
                     setPasswordData({ ...passwordData, confirmPassword: value });
                   }}
-                  placeholder="••••"
-                  maxLength={4}
+                  placeholder="••••••"
+                  maxLength={6}
                   inputMode="numeric"
                   className="text-center tracking-widest"
                   required
