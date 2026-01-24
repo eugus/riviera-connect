@@ -370,4 +370,8 @@ export default function Encomendas() {
       )}
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2b09e21 (novos ajustes)

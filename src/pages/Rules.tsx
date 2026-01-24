@@ -215,31 +215,42 @@ export default function Rules() {
         setIsDialogOpen(true);
     };
 
-    const handleDelete = async (id: string) => {
-        if (!confirm('Tem certeza que deseja deletar esta regra?')) return;
+    const handleDelete = async (reg: Regra) => {
 
-        try {
-            const { error } = await supabase
-                .from('regras')
-                .delete()
-                .eq('id', id);
+        toast({
+            title: 'Deletando regra?',
+            description: 'Esta ação não pode ser desfeita',
+            variant: 'destructive',
+            action: (
+                <button
+                    className="inline-flex h-8 items-center justify-center rounded-md border border-white/20 px-3 text-sm font-medium"
+                    onClick={async () => {
+                        try {
+                            const { error: dbError } = await supabase
+                                .from('regras')
+                                .delete()
+                                .eq('id', reg.id);
 
-            if (error) throw error;
+                            if (dbError) throw dbError;
 
-            toast({
-                title: 'Regra deletada',
-                description: 'A regra foi removida com sucesso',
-            });
+                            toast({ title: 'Regra excluída com sucesso!' });
+                            fetchRegras();
+                        } catch (error: any) {
+                            toast({
+                                variant: 'destructive',
+                                title: 'Erro ao excluir documento',
+                                description: error.message,
+                            });
+                        }
+                    }}
+                >
+                    Confirmar
+                </button>
+            ),
 
-            fetchRegras();
-        } catch (error) {
-            console.error('Erro ao deletar regra:', error);
-            toast({
-                variant: 'destructive',
-                title: 'Erro ao deletar',
-                description: 'Não foi possível deletar a regra',
-            });
-        }
+        });
+
+
     };
 
     const handleCloseDialog = () => {
@@ -483,7 +494,7 @@ export default function Rules() {
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
-                                                onClick={() => handleDelete(regra.id)}
+                                                onClick={() => handleDelete(regra)}
                                                 className="text-destructive hover:bg-destructive/10"
                                             >
                                                 <Trash2 className="h-4 w-4" />

@@ -9,8 +9,11 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Avisos from "./pages/Avisos";
+import AvisosDetalhes from "./pages/AvisosDetalhes";
 import Noticias from "./pages/Noticias";
+import NoticiasDetalhes from "./pages/NoticiasDetalhes";
 import Eventos from "./pages/Eventos";
+import EventosDetalhes from "./pages/EventosDetalhes";
 import Documentos from "./pages/Documentos";
 import Perfil from "./pages/Perfil";
 import Rules from "./pages/Rules";
@@ -41,8 +44,11 @@ const App = () => (
             >
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/avisos" element={<Avisos />} />
+              <Route path="/avisos/:id" element={<AvisosDetalhes />} />
               <Route path="/noticias" element={<Noticias />} />
+              <Route path="/noticias/:id" element={<NoticiasDetalhes />} />
               <Route path="/eventos" element={<Eventos />} />
+              <Route path="/eventos/:id" element={<EventosDetalhes />} />
               <Route path="/documentos" element={<Documentos />} />
               <Route path="/regras" element={<Rules />} />
               <Route path="/encomendas" element={<Encomendas />} />

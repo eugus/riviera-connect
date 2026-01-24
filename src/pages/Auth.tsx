@@ -12,9 +12,10 @@ import { Sun, Loader2, Building2, Home } from 'lucide-react';
 import { z } from 'zod';
 
 // Validação - Senha de 4 dígitos numéricos
+// Validação - Senha de 4 dígitos numéricos
 const loginSchema = z.object({
   email: z.string().email('E-mail inválido'),
-  password: z.string().length(4, 'Senha deve ter 4 dígitos').regex(/^\d{4}$/, 'Senha deve conter apenas números'),
+  password: z.string().length(6, 'Senha deve ter 6 dígitos').regex(/^\d{6}$/, 'Senha deve conter apenas números'),
 });
 
 const signupSchema = z.object({
@@ -22,7 +23,7 @@ const signupSchema = z.object({
   bloco: z.string().min(1, 'Selecione o bloco'),
   apartamento: z.string().min(1, 'Selecione o apartamento'),
   email: z.string().email('E-mail inválido').optional().or(z.literal('')),
-  password: z.string().length(4, 'Senha deve ter 4 dígitos').regex(/^\d{4}$/, 'Senha deve conter apenas números'),
+  password: z.string().length(6, 'Senha deve ter 4 dígitos').regex(/^\d{6}$/, 'Senha deve conter apenas números'),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: 'As senhas não coincidem',
@@ -186,18 +187,19 @@ export default function Auth() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="login-password" className="text-base">Senha (4 dígitos)</Label>
+                    <Label htmlFor="login-password" className="text-base">Senha (6 dígitos)</Label>
                     <Input
                       id="login-password"
                       type="password"
                       placeholder="••••"
+                      placeholder="••••"
                       value={loginData.password}
                       onChange={(e) => {
-                        const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+                        const value = e.target.value.replace(/\D/g, '').slice(0, 6);
                         setLoginData({ ...loginData, password: value });
                       }}
                       className="h-12 text-base text-center tracking-widest"
-                      maxLength={4}
+                      maxLength={6}
                       inputMode="numeric"
                       required
                     />
@@ -278,6 +280,7 @@ export default function Auth() {
 
                   <div className="space-y-2">
                     <Label htmlFor="signup-email" className="text-base">E-mail (opcional)</Label>
+                    <Label htmlFor="signup-email" className="text-base">E-mail (opcional)</Label>
                     <Input
                       id="signup-email"
                       type="email"
@@ -289,18 +292,19 @@ export default function Auth() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="signup-password" className="text-base">Senha (4 dígitos numéricos)</Label>
+                    <Label htmlFor="signup-password" className="text-base">Senha (6 dígitos numéricos)</Label>
                     <Input
                       id="signup-password"
                       type="password"
                       placeholder="••••"
+                      
                       value={signupData.password}
                       onChange={(e) => {
-                        const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+                        const value = e.target.value.replace(/\D/g, '').slice(0, 6);
                         setSignupData({ ...signupData, password: value });
                       }}
                       className="h-12 text-base text-center tracking-widest"
-                      maxLength={4}
+                      maxLength={6}
                       inputMode="numeric"
                       required
                     />
@@ -312,13 +316,14 @@ export default function Auth() {
                       id="signup-confirm-password"
                       type="password"
                       placeholder="••••"
+                      
                       value={signupData.confirmPassword}
                       onChange={(e) => {
-                        const value = e.target.value.replace(/\D/g, '').slice(0, 4);
+                        const value = e.target.value.replace(/\D/g, '').slice(0, 6);
                         setSignupData({ ...signupData, confirmPassword: value });
                       }}
                       className="h-12 text-base text-center tracking-widest"
-                      maxLength={4}
+                      maxLength={6}
                       inputMode="numeric"
                       required
                     />

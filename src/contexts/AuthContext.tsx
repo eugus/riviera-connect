@@ -77,7 +77,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      
+
       if (session?.user) {
         fetchProfile(session.user.id).then((p) => {
           setProfile(p);
@@ -101,10 +101,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const redirectUrl = `${window.location.origin}/`;
 
     // Se o email não for fornecido, gera um email único baseado em bloco/apt/timestamp
+<<<<<<< HEAD
     const finalEmail = email && email.trim() !== '' 
       ? email 
       : `morador_${bloco}_${apartamento}_${Date.now()}@riviera.local`;
 
+=======
+    const finalEmail = email && email.trim() !== ''
+      ? email
+      : `morador_${bloco}_${apartamento}_${Date.now()}@riviera.local`;
+
+    console.log("redirectUrl:", redirectUrl);
+
+
+>>>>>>> 2b09e21 (novos ajustes)
     const { data, error } = await supabase.auth.signUp({
       email: finalEmail,
       password,
@@ -116,6 +126,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (error) {
       return { error };
     }
+    console.log("redirectUrl:", redirectUrl);
+
 
     if (data.user) {
       // Create profile

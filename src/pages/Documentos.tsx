@@ -144,27 +144,39 @@ export default function Documentos() {
   };
 
   const handleDelete = async (doc: Documento) => {
-    if (!confirm('Tem certeza que deseja excluir este documento?')) return;
+    toast({
+      title: 'Excluir documento?',
+      description: 'Essa ação não poderá ser desfeita.',
+      variant: 'destructive',
+      action: (
+        <button
+          className="inline-flex h-8 items-center justify-center rounded-md border border-white/20 px-3 text-sm font-medium"
+          onClick={async () => {
+            try {
+              const { error: dbError } = await supabase
+                .from('documentos')
+                .delete()
+                .eq('id', doc.id);
 
-    try {
-      // Delete from database
-      const { error: dbError } = await supabase
-        .from('documentos')
-        .delete()
-        .eq('id', doc.id);
+              if (dbError) throw dbError;
 
-      if (dbError) throw dbError;
-
-      toast({ title: 'Documento excluído com sucesso!' });
-      fetchDocumentos();
-    } catch (error: any) {
-      toast({
-        variant: 'destructive',
-        title: 'Erro ao excluir documento',
-        description: error.message,
-      });
-    }
+              toast({ title: 'Documento excluído com sucesso!' });
+              fetchDocumentos();
+            } catch (error: any) {
+              toast({
+                variant: 'destructive',
+                title: 'Erro ao excluir documento',
+                description: error.message,
+              });
+            }
+          }}
+        >
+          Confirmar
+        </button>
+      ),
+    });
   };
+
 
   const DocumentCard = ({ doc }: { doc: Documento }) => {
     const catConfig = categorias[doc.categoria];

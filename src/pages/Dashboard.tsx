@@ -31,6 +31,7 @@ interface Noticia {
   id: string;
   titulo: string;
   conteudo: string;
+  imagem_url: string | null;
   created_at: string;
 }
 
