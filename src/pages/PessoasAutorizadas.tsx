@@ -10,11 +10,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
-<<<<<<< HEAD
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-=======
->>>>>>> 2b09e21 (novos ajustes)
 import {
   Users,
   Plus,
@@ -59,24 +56,14 @@ export default function PessoasAutorizadas() {
   const { isAdmin, profile } = useAuth();
   const { toast } = useToast();
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 2b09e21 (novos ajustes)
   const [pessoas, setPessoas] = useState<PessoaAutorizada[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingPessoa, setEditingPessoa] = useState<PessoaAutorizada | null>(null);
-<<<<<<< HEAD
   const [filterBloco, setFilterBloco] = useState('');
   const [filterApt, setFilterApt] = useState('');
-=======
-  const [filterBloco, setFilterBloco] = useState('all');
-  const [filterApt, setFilterApt] = useState('all');
->>>>>>> 2b09e21 (novos ajustes)
 
   const [formData, setFormData] = useState({
     bloco: '',
@@ -100,15 +87,7 @@ export default function PessoasAutorizadas() {
     const { data, error } = await query;
 
     if (error) {
-<<<<<<< HEAD
       console.error('Erro ao buscar pessoas autorizadas:', error);
-=======
-      toast({
-        title: "Erro",
-        description: error.message,
-        variant: "destructive",
-      });
->>>>>>> 2b09e21 (novos ajustes)
     } else {
       setPessoas((data as PessoaAutorizada[]) || []);
     }
@@ -129,13 +108,8 @@ export default function PessoasAutorizadas() {
       pessoa.documento?.includes(searchTerm) ||
       pessoa.telefone?.includes(searchTerm);
 
-<<<<<<< HEAD
     const matchesBloco = !filterBloco || pessoa.bloco === filterBloco;
     const matchesApt = !filterApt || pessoa.apartamento === filterApt;
-=======
-    const matchesBloco = filterBloco === 'all' || !filterBloco || pessoa.bloco === filterBloco;
-    const matchesApt = filterApt === 'all' || !filterApt || pessoa.apartamento === filterApt;
->>>>>>> 2b09e21 (novos ajustes)
 
     return matchesSearch && matchesBloco && matchesApt;
   });
@@ -201,12 +175,14 @@ export default function PessoasAutorizadas() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Tem certeza que deseja excluir esta pessoa?')) return;
-
     try {
-      const { error } = await supabase.from('pessoas_autorizadas').delete().eq('id', id);
+      const { error } = await supabase
+        .from('pessoas_autorizadas')
+        .delete()
+        .eq('id', id);
 
       if (error) throw error;
+
       toast({ title: 'Pessoa excluída com sucesso!' });
       fetchPessoas();
     } catch (error: any) {
@@ -254,23 +230,6 @@ export default function PessoasAutorizadas() {
     setIsDialogOpen(true);
   };
 
-<<<<<<< HEAD
-=======
-  const formatCPF = (value: string) => {
-    const numbers = value.replace(/\D/g, '');
-    if (numbers.length <= 11) {
-      return numbers
-        .replace(/(\d{3})(\d)/, '$1.$2')
-        .replace(/(\d{3})\.(\d{3})(\d)/, '$1.$2.$3')
-        .replace(/(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4');
-    }
-    return numbers.slice(0, 11)
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})\.(\d{3})(\d)/, '$1.$2.$3')
-      .replace(/(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4');
-  };
-
->>>>>>> 2b09e21 (novos ajustes)
   if (!isAdmin) {
     return (
       <div className="flex flex-col items-center justify-center py-12">
@@ -291,11 +250,6 @@ export default function PessoasAutorizadas() {
     );
   }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 2b09e21 (novos ajustes)
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -332,11 +286,7 @@ export default function PessoasAutorizadas() {
                     <Building2 className="h-4 w-4" /> Bloco *
                   </Label>
                   <Select
-<<<<<<< HEAD
                     value={formData.bloco}
-=======
-                    value={formData.bloco ?? undefined}
->>>>>>> 2b09e21 (novos ajustes)
                     onValueChange={(value) => setFormData({ ...formData, bloco: value })}
                     required
                   >
@@ -391,22 +341,12 @@ export default function PessoasAutorizadas() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-<<<<<<< HEAD
                   <Label htmlFor="documento">Documento (RG/CPF)</Label>
                   <Input
                     id="documento"
                     value={formData.documento}
                     onChange={(e) => setFormData({ ...formData, documento: e.target.value })}
                     placeholder="000.000.000-00"
-=======
-                  <Label htmlFor="documento">Documento (CPF)</Label>
-                  <Input
-                    id="documento"
-                    value={formData.documento}
-                    onChange={(e) => setFormData({ ...formData, documento: formatCPF(e.target.value) })}
-                    placeholder="000.000.000-00"
-                    maxLength={14}
->>>>>>> 2b09e21 (novos ajustes)
                   />
                 </div>
 
@@ -498,11 +438,7 @@ export default function PessoasAutorizadas() {
             <SelectValue placeholder="Bloco" />
           </SelectTrigger>
           <SelectContent>
-<<<<<<< HEAD
-            <SelectItem value="">Todos os Blocos</SelectItem>
-=======
-            <SelectItem value="all">Todos os Blocos</SelectItem>
->>>>>>> 2b09e21 (novos ajustes)
+            <SelectItem value="ALL">Todos os Blocos</SelectItem>
             {blocos.map((bloco) => (
               <SelectItem key={bloco} value={bloco}>
                 Bloco {bloco}
@@ -516,11 +452,7 @@ export default function PessoasAutorizadas() {
             <SelectValue placeholder="Apt" />
           </SelectTrigger>
           <SelectContent>
-<<<<<<< HEAD
-            <SelectItem value="">Todos os Apts</SelectItem>
-=======
-            <SelectItem value="all">Todos os Apts</SelectItem>
->>>>>>> 2b09e21 (novos ajustes)
+            <SelectItem value="ALL">Todos os Apts</SelectItem>
             {apartamentos.map((apt) => (
               <SelectItem key={apt} value={apt}>
                 {apt}
@@ -545,26 +477,14 @@ export default function PessoasAutorizadas() {
           {filteredPessoas.map((pessoa) => (
             <Card
               key={pessoa.id}
-<<<<<<< HEAD
-              className={`shadow-sm hover:shadow-md transition-shadow ${
-                !pessoa.ativo ? 'opacity-60' : ''
-              }`}
-=======
               className={`shadow-sm hover:shadow-md transition-shadow ${!pessoa.ativo ? 'opacity-60' : ''
                 }`}
->>>>>>> 2b09e21 (novos ajustes)
             >
               <CardHeader className="pb-2">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
-<<<<<<< HEAD
-                    <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
-                      pessoa.ativo ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
-                    }`}>
-=======
                     <div className={`h-10 w-10 rounded-full flex items-center justify-center ${pessoa.ativo ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
                       }`}>
->>>>>>> 2b09e21 (novos ajustes)
                       {pessoa.ativo ? <UserCheck className="h-5 w-5" /> : <UserX className="h-5 w-5" />}
                     </div>
                     <div>

@@ -132,9 +132,10 @@ export default function Eventos() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Tem certeza que deseja excluir este evento?')) return;
-
-    const { error } = await supabase.from('eventos').delete().eq('id', id);
+    const { error } = await supabase
+      .from('eventos')
+      .delete()
+      .eq('id', id);
 
     if (error) {
       toast({

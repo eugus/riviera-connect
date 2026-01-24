@@ -148,9 +148,10 @@ export default function Noticias() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Tem certeza que deseja excluir esta notícia?')) return;
-
-    const { error } = await supabase.from('noticias').delete().eq('id', id);
+    const { error } = await supabase
+      .from('noticias')
+      .delete()
+      .eq('id', id);
 
     if (error) {
       toast({
@@ -234,9 +235,9 @@ export default function Noticias() {
                   <div className="space-y-3">
                     {imagePreview && (
                       <div className="relative">
-                        <img 
-                          src={imagePreview} 
-                          alt="Preview" 
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
                           className="w-full h-32 object-cover rounded-lg"
                         />
                         <Button
@@ -370,9 +371,8 @@ export default function Noticias() {
               </CardHeader>
               <CardContent className="flex-1">
                 <p
-                  className={`text-foreground whitespace-pre-wrap ${
-                    expandedNoticia === noticia.id ? '' : 'line-clamp-4'
-                  }`}
+                  className={`text-foreground whitespace-pre-wrap ${expandedNoticia === noticia.id ? '' : 'line-clamp-4'
+                    }`}
                 >
                   {noticia.conteudo}
                 </p>

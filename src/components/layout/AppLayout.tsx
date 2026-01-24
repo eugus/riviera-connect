@@ -59,8 +59,9 @@ export const AppLayout: React.FC = () => {
         <div className="container flex h-16 items-center justify-between px-4">
           {/* Logo */}
           <Link to="/dashboard" className="flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
+            <div className="flex h-10 w-10 items-center justify-center ">
               <Sun className="h-6 w-6 text-primary-foreground" />
+              <img src="img-riviera.jpeg" alt="" />
             </div>
             <span className="hidden text-xl font-bold text-foreground sm:inline-block">
               Riviera
