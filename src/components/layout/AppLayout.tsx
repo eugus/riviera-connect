@@ -18,6 +18,7 @@ import {
   BookOpen,
   Package,
   Users,
+  HelpCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -29,6 +30,7 @@ const navItems = [
   { path: '/documentos', label: 'Documentos', icon: FileText },
   { path: '/regras', label: 'Regras', icon: BookOpen },
   { path: '/encomendas', label: 'Encomendas', icon: Package },
+  { path: '/faq', label: 'Dúvidas', icon: HelpCircle },
   { path: '/pessoas-autorizadas', label: 'Autorizados', icon: Users, adminOnly: true },
   { path: '/perfil', label: 'Perfil', icon: User },
 ];

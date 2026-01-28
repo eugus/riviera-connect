@@ -201,6 +201,50 @@ export type Database = {
           },
         ]
       }
+      faq: {
+        Row: {
+          ativo: boolean
+          autor_id: string | null
+          categoria: string
+          created_at: string
+          id: string
+          ordem: number
+          pergunta: string
+          resposta: string
+          updated_at: string
+        }
+        Insert: {
+          ativo?: boolean
+          autor_id?: string | null
+          categoria?: string
+          created_at?: string
+          id?: string
+          ordem?: number
+          pergunta: string
+          resposta: string
+          updated_at?: string
+        }
+        Update: {
+          ativo?: boolean
+          autor_id?: string | null
+          categoria?: string
+          created_at?: string
+          id?: string
+          ordem?: number
+          pergunta?: string
+          resposta?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "faq_autor_id_fkey"
+            columns: ["autor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       noticias: {
         Row: {
           autor_id: string | null
