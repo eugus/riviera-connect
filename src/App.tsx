@@ -19,6 +19,7 @@ import Perfil from "./pages/Perfil";
 import Rules from "./pages/Rules";
 import Encomendas from "./pages/Encomendas";
 import PessoasAutorizadas from "./pages/PessoasAutorizadas";
+import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ const App = () => (
               <Route path="/regras" element={<Rules />} />
               <Route path="/encomendas" element={<Encomendas />} />
               <Route path="/pessoas-autorizadas" element={<PessoasAutorizadas />} />
+              <Route path="/faq" element={<FAQ />} />
               <Route path="/perfil" element={<Perfil />} />
             </Route>
 
