@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">riviera-connect</string>
+    <string name="title_activity_main">riviera-connect</string>
+    <string name="package_name">app.lovable.b4b37231473649489bec87a30e67b2c7</string>
+    <string name="custom_url_scheme">app.lovable.b4b37231473649489bec87a30e67b2c7</string>
+</resources>
