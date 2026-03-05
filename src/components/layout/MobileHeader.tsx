@@ -29,7 +29,7 @@ export const MobileHeader: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-card border-b border-border shadow-sm">
+    <header className="sticky top-0 z-50 w-full bg-card border-b border-border shadow-sm" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
       <div className="flex h-14 items-center justify-between px-3">
         <Link to="/dashboard" className="flex items-center gap-2">
           <img src="img-riviera.jpeg" alt="Riviera" className="h-8 w-8 rounded-md object-cover" />
